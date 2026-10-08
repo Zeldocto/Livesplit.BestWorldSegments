@@ -1,0 +1,9 @@
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\bin\Debug\net4.8.1\LiveSplit.BestWorldSegments.dll
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\bin\Debug\net4.8.1\LiveSplit.BestWorldSegments.pdb
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\obj\Debug\net4.8.1\LiveSplit.BestWorldSegments.csproj.AssemblyReference.cache
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\obj\Debug\net4.8.1\LiveSplit.BestWorldSegments.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\obj\Debug\net4.8.1\LiveSplit.BestWorldSegments.AssemblyInfoInputs.cache
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\obj\Debug\net4.8.1\LiveSplit.BestWorldSegments.AssemblyInfo.cs
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\obj\Debug\net4.8.1\LiveSplit.BestWorldSegments.csproj.CoreCompileInputs.cache
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\obj\Debug\net4.8.1\LiveSplit.BestWorldSegments.dll
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\src\LiveSplit.BestWorldSegments\obj\Debug\net4.8.1\LiveSplit.BestWorldSegments.pdb

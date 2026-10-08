@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "OyfZyu7lZgU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\src\\LiveSplit.BestWorldSegments\\LiveSplit.BestWorldSegments.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\zeldo\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "C:\\Users\\zeldo\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net481\\1.0.3\\microsoft.netframework.referenceassemblies.net481.1.0.3.nupkg.sha512",
+    "C:\\Users\\zeldo\\.nuget\\packages\\polysharp\\1.16.0\\polysharp.1.16.0.nupkg.sha512"
+  ],
+  "logs": []
+}

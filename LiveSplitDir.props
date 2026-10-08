@@ -1,0 +1,8 @@
+<Project>
+
+  <!-- Folder containing LiveSplit.exe. Override with: dotnet build -p:LiveSplitDir="C:\path\to\LiveSplit" -->
+  <PropertyGroup>
+    <LiveSplitDir Condition="'$(LiveSplitDir)' == ''">$(USERPROFILE)\Documents\#Stream\Speedrun\LiveSplit</LiveSplitDir>
+  </PropertyGroup>
+
+</Project>

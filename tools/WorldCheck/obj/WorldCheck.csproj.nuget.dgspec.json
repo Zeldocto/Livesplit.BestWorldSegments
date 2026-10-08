@@ -1,0 +1,133 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\tools\\WorldCheck\\WorldCheck.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\src\\LiveSplit.BestWorldSegments\\LiveSplit.BestWorldSegments.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\src\\LiveSplit.BestWorldSegments\\LiveSplit.BestWorldSegments.csproj",
+        "projectName": "LiveSplit.BestWorldSegments",
+        "projectPath": "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\src\\LiveSplit.BestWorldSegments\\LiveSplit.BestWorldSegments.csproj",
+        "packagesPath": "C:\\Users\\zeldo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\src\\LiveSplit.BestWorldSegments\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\zeldo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net4.8.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net4.8.1": {
+            "framework": "net481",
+            "targetAlias": "net4.8.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.400"
+      },
+      "frameworks": {
+        "net4.8.1": {
+          "framework": "net481",
+          "targetAlias": "net4.8.1",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            },
+            "PolySharp": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.16.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Users\\zeldo\\AppData\\Local\\Microsoft\\dotnet\\sdk\\10.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\tools\\WorldCheck\\WorldCheck.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\tools\\WorldCheck\\WorldCheck.csproj",
+        "projectName": "WorldCheck",
+        "projectPath": "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\tools\\WorldCheck\\WorldCheck.csproj",
+        "packagesPath": "C:\\Users\\zeldo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\tools\\WorldCheck\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\zeldo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net4.8.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net4.8.1": {
+            "framework": "net481",
+            "targetAlias": "net4.8.1",
+            "projectReferences": {
+              "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\src\\LiveSplit.BestWorldSegments\\LiveSplit.BestWorldSegments.csproj": {
+                "projectPath": "C:\\Users\\zeldo\\source\\repos\\LiveSplit.BestWorldSegments\\src\\LiveSplit.BestWorldSegments\\LiveSplit.BestWorldSegments.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.400"
+      },
+      "frameworks": {
+        "net4.8.1": {
+          "framework": "net481",
+          "targetAlias": "net4.8.1",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            },
+            "PolySharp": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.16.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Users\\zeldo\\AppData\\Local\\Microsoft\\dotnet\\sdk\\10.0.401\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

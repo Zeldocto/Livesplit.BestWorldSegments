@@ -1,0 +1,15 @@
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\bin\Release\net4.8.1\WorldCheck.exe.config
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\bin\Release\net4.8.1\WorldCheck.exe
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\bin\Release\net4.8.1\WorldCheck.pdb
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\bin\Release\net4.8.1\LiveSplit.BestWorldSegments.dll
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\bin\Release\net4.8.1\LiveSplit.BestWorldSegments.pdb
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.csproj.AssemblyReference.cache
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.csproj.SuggestedBindingRedirects.cache
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.exe.config
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.AssemblyInfoInputs.cache
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.AssemblyInfo.cs
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.csproj.CoreCompileInputs.cache
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.csproj.Up2Date
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.exe
+C:\Users\zeldo\source\repos\LiveSplit.BestWorldSegments\tools\WorldCheck\obj\Release\net4.8.1\WorldCheck.pdb
