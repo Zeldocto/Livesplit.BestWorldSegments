@@ -10,7 +10,7 @@ namespace LiveSplit.UI.Components;
 /// <summary>
 /// The Subsplits component never colors a collapsed world gold: it only compares the world against
 /// the comparison. This finds the Subsplits components on the layout and paints the delta columns of
-/// a collapsed world with the layout's best segment color when the current run set a new best world.
+/// a collapsed world with the gold color when the current run set a new best world.
 /// </summary>
 /// <remarks>
 /// LiveSplit updates every component before drawing any of them, so recoloring the labels after the
@@ -29,14 +29,13 @@ internal sealed class SubsplitsGoldPainter
     private readonly Dictionary<(Type, string), PropertyInfo> properties = [];
 
     /// <param name="isNewBestWorld">Whether the given world, finished in the current run, is a new best world.</param>
-    public void Paint(LiveSplitState state, IList<WorldTimes> rows, Func<WorldTimes, bool> isNewBestWorld)
+    public void Paint(LiveSplitState state, IList<WorldTimes> rows, Func<WorldTimes, bool> isNewBestWorld, Color gold)
     {
         if (state.Layout == null || state.CurrentPhase == TimerPhase.NotRunning)
         {
             return;
         }
 
-        Color gold = state.LayoutSettings.BestSegmentColor;
         foreach (IComponent component in state.Layout.Components)
         {
             if (!IsSubsplitsType(component, "SplitsComponent")
@@ -94,6 +93,14 @@ internal sealed class SubsplitsGoldPainter
             if (DeltaColumnTypes.Contains(GetValue(column, "Type")?.ToString() ?? ""))
             {
                 labels[index].ForeColor = gold;
+
+                // The row only redraws when its cache sees a change. Recording the gold here means the
+                // Subsplits component sees its own color as a change next frame and redraws the row,
+                // which keeps a rainbow color moving.
+                if (GetValue(split, "Cache") is GraphicsCache cache)
+                {
+                    cache["Columns" + index + "Color"] = gold.ToArgb();
+                }
             }
 
             index++;

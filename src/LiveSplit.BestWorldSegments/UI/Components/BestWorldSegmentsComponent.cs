@@ -179,7 +179,7 @@ public class BestWorldSegmentsComponent : IComponent
         {
             if (IsNewBestWorld(finished, row))
             {
-                color = state.LayoutSettings.BestSegmentColor;
+                color = Settings.GetGoldColor(state);
             }
             else if (row.PersonalBest != null)
             {
@@ -210,7 +210,7 @@ public class BestWorldSegmentsComponent : IComponent
     {
         if (Settings.SubsplitsWorldGold)
         {
-            subsplitsGoldPainter.Paint(state, rows, row => IsNewBestWorld(state, row));
+            subsplitsGoldPainter.Paint(state, rows, row => IsNewBestWorld(state, row), Settings.GetGoldColor(state));
         }
     }
 

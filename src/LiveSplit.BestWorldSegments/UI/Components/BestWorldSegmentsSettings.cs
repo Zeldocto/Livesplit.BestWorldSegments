@@ -14,6 +14,11 @@ public class BestWorldSegmentsSettings : UserControl
     public const string RealTimeName = "Real Time";
     public const string GameTimeName = "Game Time";
 
+    /// <summary>
+    /// LiveSplit's default best segment color.
+    /// </summary>
+    private static readonly Color DefaultGoldColor = Color.FromArgb(216, 175, 31);
+
     public bool DisplayOnLayout { get; set; }
 
     public bool ShowCurrentColumn { get; set; }
@@ -41,6 +46,9 @@ public class BestWorldSegmentsSettings : UserControl
     public bool OverrideTimeColor { get; set; }
     public Color TimeColor { get; set; }
     public bool SubsplitsWorldGold { get; set; }
+    public bool UseRainbowGoldColor { get; set; }
+    public bool OverrideGoldColor { get; set; }
+    public Color GoldColor { get; set; }
 
     public Color BackgroundColor { get; set; }
     public Color BackgroundColor2 { get; set; }
@@ -59,6 +67,10 @@ public class BestWorldSegmentsSettings : UserControl
     public Func<IList<WorldTimes>> GetWorldTimes { get; set; }
 
     private readonly Button btnColor2;
+    private readonly CheckBox chkSubsplitsWorldGold;
+    private readonly CheckBox chkRainbowGold;
+    private readonly CheckBox chkOverrideGold;
+    private readonly Button btnGoldColor;
     private readonly ListView worldList;
 
     public BestWorldSegmentsSettings()
@@ -81,6 +93,9 @@ public class BestWorldSegmentsSettings : UserControl
         OverrideTimeColor = false;
         TimeColor = Color.White;
         SubsplitsWorldGold = true;
+        UseRainbowGoldColor = false;
+        OverrideGoldColor = false;
+        GoldColor = DefaultGoldColor;
         BackgroundColor = Color.Transparent;
         BackgroundColor2 = Color.Transparent;
         BackgroundGradient = GradientType.Plain;
@@ -131,6 +146,7 @@ public class BestWorldSegmentsSettings : UserControl
             if (Visible)
             {
                 RefreshWorldList();
+                UpdateGoldControls();
             }
         };
 
@@ -169,7 +185,15 @@ public class BestWorldSegmentsSettings : UserControl
         AddColorButton(colors, "Text color:", nameof(TextColor));
         AddCheckBox(colors, "Override layout time color", nameof(OverrideTimeColor));
         AddColorButton(colors, "Time color:", nameof(TimeColor));
-        AddCheckBox(colors, "Color a new best world gold on the Subsplits component", nameof(SubsplitsWorldGold));
+        chkSubsplitsWorldGold = AddCheckBox(colors, "Color a new best world gold on the Subsplits component", nameof(SubsplitsWorldGold));
+        chkRainbowGold = AddCheckBox(colors, "Use rainbow gold color", nameof(UseRainbowGoldColor));
+        chkOverrideGold = AddCheckBox(colors, "Override layout gold color", nameof(OverrideGoldColor));
+        btnGoldColor = AddColorButton(colors, "Gold color:", nameof(GoldColor));
+        chkRainbowGold.Margin = chkOverrideGold.Margin = new Padding(20, 3, 3, 3);
+        chkSubsplitsWorldGold.CheckedChanged += (s, e) => UpdateGoldControls();
+        chkRainbowGold.CheckedChanged += (s, e) => UpdateGoldControls();
+        chkOverrideGold.CheckedChanged += (s, e) => UpdateGoldControls();
+        UpdateGoldControls();
         var gradient = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 160 };
         gradient.Items.AddRange(Enum.GetNames(typeof(GradientType)));
         gradient.DataBindings.Add("SelectedItem", this, nameof(GradientString), false, DataSourceUpdateMode.OnPropertyChanged);
@@ -238,12 +262,21 @@ public class BestWorldSegmentsSettings : UserControl
         return table;
     }
 
-    private void AddCheckBox(TableLayoutPanel table, string text, string property)
+    private void UpdateGoldControls()
+    {
+        // Read the checkboxes rather than the properties, since this can run before the bindings write back.
+        chkRainbowGold.Enabled = chkSubsplitsWorldGold.Checked;
+        chkOverrideGold.Enabled = chkSubsplitsWorldGold.Checked && !chkRainbowGold.Checked;
+        btnGoldColor.Enabled = chkOverrideGold.Enabled && chkOverrideGold.Checked;
+    }
+
+    private CheckBox AddCheckBox(TableLayoutPanel table, string text, string property)
     {
         var checkBox = new CheckBox { Text = text, AutoSize = true };
         checkBox.DataBindings.Add("Checked", this, property, false, DataSourceUpdateMode.OnPropertyChanged);
         table.Controls.Add(checkBox);
         table.SetColumnSpan(checkBox, 2);
+        return checkBox;
     }
 
     private Button AddColorButton(TableLayoutPanel table, string text, string property)
@@ -251,14 +284,41 @@ public class BestWorldSegmentsSettings : UserControl
         var button = new Button { Width = 23, Height = 23, FlatStyle = FlatStyle.Popup };
         button.DataBindings.Add("BackColor", this, property, false, DataSourceUpdateMode.OnPropertyChanged);
         button.Click += (s, e) => SettingsHelper.ColorButtonClick(button, this);
-        AddRow(table, text, button);
+        Label label = AddRow(table, text, button);
+
+        // A disabled color button still shows its color, so grey out its label to make it visible.
+        button.EnabledChanged += (s, e) => label.Enabled = button.Enabled;
         return button;
     }
 
-    private static void AddRow(TableLayoutPanel table, string text, Control control)
+    private static Label AddRow(TableLayoutPanel table, string text, Control control)
     {
-        table.Controls.Add(new Label { Text = text, AutoSize = true, Anchor = AnchorStyles.Left, Margin = new Padding(3, 7, 3, 3) });
+        var label = new Label { Text = text, AutoSize = true, Anchor = AnchorStyles.Left, Margin = new Padding(3, 7, 3, 3) };
+        table.Controls.Add(label);
         table.Controls.Add(control);
+        return label;
+    }
+
+    /// <summary>
+    /// The color for a new best world: rainbow or the chosen color when set, otherwise the layout's
+    /// best segment color (which LiveSplit makes rainbow when the layout uses the rainbow color).
+    /// </summary>
+    public Color GetGoldColor(LiveSplitState state)
+    {
+        if (SubsplitsWorldGold && UseRainbowGoldColor)
+        {
+            // Same color as LiveSplitStateHelper.GetBestSegmentColor with "Use Rainbow Best Segment Color".
+            int hue = (int)DateTime.Now.TimeOfDay.TotalMilliseconds / 100 % 36 * 10;
+            Color rainbowColor = ColorExtensions.FromHSV(hue, 1, 1);
+            return Color.FromArgb(((rainbowColor.R * 2) + (255 * 1)) / 3, ((rainbowColor.G * 2) + (255 * 1)) / 3, ((rainbowColor.B * 2) + (255 * 1)) / 3);
+        }
+
+        if (SubsplitsWorldGold && OverrideGoldColor)
+        {
+            return GoldColor;
+        }
+
+        return LiveSplitStateHelper.GetBestSegmentColor(state);
     }
 
     public TimingMethod GetTimingMethod(LiveSplitState state)
@@ -292,6 +352,9 @@ public class BestWorldSegmentsSettings : UserControl
         OverrideTimeColor = SettingsHelper.ParseBool(element["OverrideTimeColor"]);
         TimeColor = SettingsHelper.ParseColor(element["TimeColor"], Color.White);
         SubsplitsWorldGold = SettingsHelper.ParseBool(element["SubsplitsWorldGold"], true);
+        UseRainbowGoldColor = SettingsHelper.ParseBool(element["UseRainbowGoldColor"], false);
+        OverrideGoldColor = SettingsHelper.ParseBool(element["OverrideGoldColor"], false);
+        GoldColor = SettingsHelper.ParseColor(element["GoldColor"], DefaultGoldColor);
         BackgroundColor = SettingsHelper.ParseColor(element["BackgroundColor"], Color.Transparent);
         BackgroundColor2 = SettingsHelper.ParseColor(element["BackgroundColor2"], Color.Transparent);
         BackgroundGradient = SettingsHelper.ParseEnum(element["BackgroundGradient"], GradientType.Plain);
@@ -330,6 +393,9 @@ public class BestWorldSegmentsSettings : UserControl
             SettingsHelper.CreateSetting(document, parent, "OverrideTimeColor", OverrideTimeColor) ^
             SettingsHelper.CreateSetting(document, parent, "TimeColor", TimeColor) ^
             SettingsHelper.CreateSetting(document, parent, "SubsplitsWorldGold", SubsplitsWorldGold) ^
+            SettingsHelper.CreateSetting(document, parent, "UseRainbowGoldColor", UseRainbowGoldColor) ^
+            SettingsHelper.CreateSetting(document, parent, "OverrideGoldColor", OverrideGoldColor) ^
+            SettingsHelper.CreateSetting(document, parent, "GoldColor", GoldColor) ^
             SettingsHelper.CreateSetting(document, parent, "BackgroundColor", BackgroundColor) ^
             SettingsHelper.CreateSetting(document, parent, "BackgroundColor2", BackgroundColor2) ^
             SettingsHelper.CreateSetting(document, parent, "BackgroundGradient", BackgroundGradient);
