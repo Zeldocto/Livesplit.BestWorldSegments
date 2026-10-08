@@ -13,6 +13,10 @@ Worlds follow the Subsplits component's naming: segments starting with `-` are s
 | SoG | Sum of golds of the world's segments (off by default). This is ≤ Best, since golds can come from different attempts. |
 | Best | Best world segment from your segment history. |
 
+## Gold worlds on the Subsplits component
+
+The Subsplits component never colors a collapsed world gold, only ahead or behind. When you finish a world faster than your best world segment, this component paints that world's row on the Subsplits component (its +/- and segment delta columns) with your layout's best segment color, just like a gold split. Keep this component below the Subsplits component in the layout: LiveSplit updates components top to bottom, so from there the gold is always applied after the Subsplits component picks its colors. This works with **Display world segments on layout** unchecked too. Turn it off with **Color a new best world gold on the Subsplits component** under Colors.
+
 ## Settings page
 
 The top of the settings page lists every world's Best World, PB and Sum of Golds, with totals, for the loaded splits. Uncheck **Display world segments on layout** to hide the component from the layout while keeping that table available.
