@@ -40,6 +40,7 @@ public class BestWorldSegmentsSettings : UserControl
     public Color TextColor { get; set; }
     public bool OverrideTimeColor { get; set; }
     public Color TimeColor { get; set; }
+    public bool SubsplitsWorldGold { get; set; }
 
     public Color BackgroundColor { get; set; }
     public Color BackgroundColor2 { get; set; }
@@ -79,6 +80,7 @@ public class BestWorldSegmentsSettings : UserControl
         TextColor = Color.White;
         OverrideTimeColor = false;
         TimeColor = Color.White;
+        SubsplitsWorldGold = true;
         BackgroundColor = Color.Transparent;
         BackgroundColor2 = Color.Transparent;
         BackgroundGradient = GradientType.Plain;
@@ -167,6 +169,7 @@ public class BestWorldSegmentsSettings : UserControl
         AddColorButton(colors, "Text color:", nameof(TextColor));
         AddCheckBox(colors, "Override layout time color", nameof(OverrideTimeColor));
         AddColorButton(colors, "Time color:", nameof(TimeColor));
+        AddCheckBox(colors, "Color a new best world gold on the Subsplits component", nameof(SubsplitsWorldGold));
         var gradient = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 160 };
         gradient.Items.AddRange(Enum.GetNames(typeof(GradientType)));
         gradient.DataBindings.Add("SelectedItem", this, nameof(GradientString), false, DataSourceUpdateMode.OnPropertyChanged);
@@ -288,6 +291,7 @@ public class BestWorldSegmentsSettings : UserControl
         TextColor = SettingsHelper.ParseColor(element["TextColor"], Color.White);
         OverrideTimeColor = SettingsHelper.ParseBool(element["OverrideTimeColor"]);
         TimeColor = SettingsHelper.ParseColor(element["TimeColor"], Color.White);
+        SubsplitsWorldGold = SettingsHelper.ParseBool(element["SubsplitsWorldGold"], true);
         BackgroundColor = SettingsHelper.ParseColor(element["BackgroundColor"], Color.Transparent);
         BackgroundColor2 = SettingsHelper.ParseColor(element["BackgroundColor2"], Color.Transparent);
         BackgroundGradient = SettingsHelper.ParseEnum(element["BackgroundGradient"], GradientType.Plain);
@@ -325,6 +329,7 @@ public class BestWorldSegmentsSettings : UserControl
             SettingsHelper.CreateSetting(document, parent, "TextColor", TextColor) ^
             SettingsHelper.CreateSetting(document, parent, "OverrideTimeColor", OverrideTimeColor) ^
             SettingsHelper.CreateSetting(document, parent, "TimeColor", TimeColor) ^
+            SettingsHelper.CreateSetting(document, parent, "SubsplitsWorldGold", SubsplitsWorldGold) ^
             SettingsHelper.CreateSetting(document, parent, "BackgroundColor", BackgroundColor) ^
             SettingsHelper.CreateSetting(document, parent, "BackgroundColor2", BackgroundColor2) ^
             SettingsHelper.CreateSetting(document, parent, "BackgroundGradient", BackgroundGradient);

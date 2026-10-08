@@ -28,6 +28,7 @@ public class BestWorldSegmentsComponent : IComponent
     private readonly SplitTimeFormatter formatter = new();
     private readonly SimpleLabel nameLabel = new();
     private readonly SimpleLabel timeLabel = new() { IsMonospaced = true };
+    private readonly SubsplitsGoldPainter subsplitsGoldPainter = new();
 
     private List<WorldTimes> rows = [];
     private List<WorldTimes> visibleRows = [];
@@ -176,7 +177,7 @@ public class BestWorldSegmentsComponent : IComponent
         TimeSpan? finished = WorldCalculator.GetCurrentRunWorldTime(state.Run, row.World, method, state.CurrentSplitIndex);
         if (finished != null)
         {
-            if (row.Best == null || finished < row.Best)
+            if (IsNewBestWorld(finished, row))
             {
                 color = state.LayoutSettings.BestSegmentColor;
             }
@@ -192,6 +193,25 @@ public class BestWorldSegmentsComponent : IComponent
 
         TimeSpan? progress = WorldCalculator.GetCurrentRunWorldProgress(state.Run, row.World, method, state.CurrentSplitIndex, state.CurrentTime[method]);
         return progress == null ? "" : formatter.Format(progress);
+    }
+
+    private static bool IsNewBestWorld(TimeSpan? finished, WorldTimes row)
+    {
+        return finished != null && (row.Best == null || finished < row.Best);
+    }
+
+    private bool IsNewBestWorld(LiveSplitState state, WorldTimes row)
+    {
+        TimingMethod method = Settings.GetTimingMethod(state);
+        return IsNewBestWorld(WorldCalculator.GetCurrentRunWorldTime(state.Run, row.World, method, state.CurrentSplitIndex), row);
+    }
+
+    private void PaintSubsplitsGold(LiveSplitState state)
+    {
+        if (Settings.SubsplitsWorldGold)
+        {
+            subsplitsGoldPainter.Paint(state, rows, row => IsNewBestWorld(state, row));
+        }
     }
 
     private void PrepareLabel(SimpleLabel label, LiveSplitState state, Font font, string text, Color color, StringAlignment alignment)
@@ -242,6 +262,8 @@ public class BestWorldSegmentsComponent : IComponent
 
     public void DrawVertical(Graphics g, LiveSplitState state, float width, Region clipRegion)
     {
+        // Drawing starts after every component has updated, so this covers being above the Subsplits component.
+        PaintSubsplitsGold(state);
         if (!Settings.DisplayOnLayout)
         {
             return;
@@ -309,6 +331,7 @@ public class BestWorldSegmentsComponent : IComponent
 
     public void DrawHorizontal(Graphics g, LiveSplitState state, float height, Region clipRegion)
     {
+        PaintSubsplitsGold(state);
         if (!Settings.DisplayOnLayout)
         {
             return;
@@ -345,6 +368,9 @@ public class BestWorldSegmentsComponent : IComponent
         formatter.Accuracy = Settings.Accuracy;
         UpdateRows(state);
         UpdateVisibility(state);
+
+        // Runs after the Subsplits component's update when this component is below it on the layout.
+        PaintSubsplitsGold(state);
 
         if (invalidator == null)
         {
